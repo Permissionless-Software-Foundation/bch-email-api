@@ -22,31 +22,32 @@ describe('#iRedMail', () => {
     if (process.env.TEST_ENV === 'integration') {
       testType = 'integration'
 
-      iRedMail = new IRedMail()
-      await iRedMail.sequelize.authenticate()
+      // iRedMail = new IRedMail()
+      // await iRedMail.sequelize.authenticate()
     }
   })
 
   describe('#createUser', () => {
-    it('should get database models', async () => {
-      try {
-        console.log(`Hello world!`)
-        /*
-        const options = {
-          method: 'POST',
-          uri: `${LOCALHOST}/iredmail/adduser`,
-          resolveWithFullResponse: true,
-          json: true,
-          body: {
-          }
-        }
+    if (process.env.TEST_ENV === 'integration') {
+      it('should get database models', async () => {
+        try {
+          // console.log(`Hello world!`)
 
-        let result = await rp(options)
-        console.log(`result: ${util.inspect(result)}`)
-        */
-      } catch (err) {
-        console.log(`Error in #createUser test: `, err)
-      }
-    })
+          const options = {
+            method: 'POST',
+            uri: `${LOCALHOST}/iredmail/adduser`,
+            resolveWithFullResponse: true,
+            json: true,
+            body: {
+            }
+          }
+
+          let result = await rp(options)
+          console.log(`result: ${util.inspect(result.body)}`)
+        } catch (err) {
+          console.log(`Error in #createUser test: `, err)
+        }
+      })
+    }
   })
 })

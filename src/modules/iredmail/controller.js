@@ -1,18 +1,27 @@
 // const User = require('../../models/users')
 
+const util = require('util')
+util.inspect.defaultOptions = { depth: 1 }
+
 /*
   Create a new user by manipulating the postgres database.
 */
 async function createUser (ctx) {
   try {
-    // Sync the model.
-    await ctx.iRedMail.models.usedQuota.sync()
+    // console.log(`ctx.iRedMail: ${util.inspect(ctx.iRedMail)}`)
 
+    // Sync the model.
+    const model = await ctx.iRedMail.models.usedQuota.sync()
+
+    const data = await model.findAll()
+    /*
     // Get all the models in the database:
     const models = await ctx.iRedMail.usedQuota.findAll()
 
     console.log(`data: ${JSON.stringify(models, null, 2)}`)
     ctx.body = { models }
+    */
+    ctx.body = data
   } catch (err) {
     console.log(`Error in iredmail.createUser(): `, err)
     ctx.throw(500, err.message)
