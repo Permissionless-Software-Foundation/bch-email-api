@@ -2,7 +2,9 @@
 let common
 try {
   common = require('./env/common')
-} catch (err) {}
+} catch (err) {
+  common = require('./env/min-config')
+}
 
 // Default to development environment.
 const env = process.env.NODE_ENV || 'development'

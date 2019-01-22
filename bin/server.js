@@ -54,12 +54,16 @@ async function startServer () {
   await app.listen(config.port)
   console.log(`Server started on ${config.port}`)
 
-  const iRedMail = new IRedMail()
-  await iRedMail.sequelize.authenticate()
-  console.log('Connection to the iRedMail postgres database has been established successfully.')
+  try {
+    const iRedMail = new IRedMail()
+    await iRedMail.sequelize.authenticate()
+    console.log('Connection to the iRedMail postgres database has been established successfully.')
 
-  // Attach to iRedMail instantiation to the context object.
-  app.context.iRedMail = iRedMail
+    // Attach to iRedMail instantiation to the context object.
+    app.context.iRedMail = iRedMail
+  } catch (err) {
+    console.log(`Could not connect to iRedMail instance.`)
+  }
 
   return app
 }
