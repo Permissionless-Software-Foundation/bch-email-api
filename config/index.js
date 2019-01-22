@@ -7,7 +7,7 @@ try {
 }
 
 // Default to development environment.
-const env = process.env.NODE_ENV || 'development'
+const env = process.env.APP_ENV || 'development'
 
 // Load the config object for the selected environment.
 const config = require(`./env/${env}`)
