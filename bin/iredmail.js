@@ -10,6 +10,7 @@ const config = require('../config')
 
 // Models
 const UsedQuota = require('../postgres/models/used-quota')
+const Mailbox = require('../postgres/models/mailbox')
 
 class IRedMail {
   constructor () {
@@ -18,7 +19,8 @@ class IRedMail {
 
     // Load the models
     this.models = {
-      usedQuota: new UsedQuota(this.sequelize)
+      usedQuota: new UsedQuota(this.sequelize),
+      mailbox: new Mailbox(this.sequelize)
     }
   }
 

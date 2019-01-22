@@ -15,7 +15,8 @@ async function getUsers (ctx) {
     // console.log(`ctx.iRedMail: ${util.inspect(ctx.iRedMail)}`)
 
     // Sync the model.
-    const model = await ctx.iRedMail.models.usedQuota.sync()
+    // const model = await ctx.iRedMail.models.usedQuota.sync()
+    const model = await ctx.iRedMail.models.mailbox.sync()
 
     const data = await model.findAll()
 

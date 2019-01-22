@@ -15,7 +15,6 @@ const LOCALHOST = 'http://localhost:5000'
 
 describe('#iRedMail', () => {
   let testType = 'unit'
-  let iRedMail
 
   before(async () => {
     // Detect integration test flag.
