@@ -10,5 +10,12 @@ module.exports.routes = [
     handlers: [
       iredmail.createUser
     ]
+  },
+  {
+    method: 'GET',
+    route: '/',
+    handlers: [
+      iredmail.getUsers
+    ]
   }
 ]

@@ -50,4 +50,26 @@ describe('#iRedMail', () => {
       })
     }
   })
+
+  describe('#getUsers', () => {
+    if (process.env.TEST_ENV === 'integration') {
+      it('should get database models', async () => {
+        try {
+          // console.log(`Hello world!`)
+
+          const options = {
+            method: 'GET',
+            uri: `${LOCALHOST}/iredmail`,
+            resolveWithFullResponse: true,
+            json: true
+          }
+
+          let result = await rp(options)
+          console.log(`result: ${util.inspect(result.body)}`)
+        } catch (err) {
+          console.log(`Error in #createUser test: `, err)
+        }
+      })
+    }
+  })
 })
