@@ -8,7 +8,8 @@ const passport = require('koa-passport')
 const mount = require('koa-mount')
 const serve = require('koa-static')
 const cors = require('kcors')
-const Sequelize = require('sequelize')
+
+const IRedMail = require('./iredmail')
 
 const config = require('../config')
 const errorMiddleware = require('../src/middleware')
@@ -53,41 +54,20 @@ async function startServer () {
   await app.listen(config.port)
   console.log(`Server started on ${config.port}`)
 
-  runTest()
+  const iRedMail = new IRedMail()
+  await iRedMail.sequelize.authenticate()
+  console.log('Connection to the iRedMail postgres database has been established successfully.')
+
+  // Attach to iRedMail instantiation to the context object.
+  app.context.iRedMail = iRedMail
 
   return app
 }
 // startServer()
 
+/*
 async function runTest () {
   try {
-    const sequelize = new Sequelize('vmail', config.postgresUser, config.postgresPass, {
-      host: config.postgresHost,
-      dialect: 'postgres',
-
-      pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-      },
-
-      // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
-      operatorsAliases: false
-    })
-
-    const UsedQuota = sequelize.define(
-      'used_quota',
-      {
-        username: { type: Sequelize.STRING, primaryKey: true },
-        bytes: Sequelize.BIGINT,
-        messages: Sequelize.BIGINT,
-        domain: Sequelize.STRING
-      },
-      {
-        timestamps: false
-      }
-    )
 
     await sequelize.authenticate()
 
@@ -102,6 +82,7 @@ async function runTest () {
     console.log(`Error: `, err)
   }
 }
+*/
 
 // export default app
 // module.exports = app
