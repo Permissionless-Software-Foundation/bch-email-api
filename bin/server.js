@@ -61,8 +61,8 @@ async function startServer () {
 
 async function runTest () {
   try {
-    const sequelize = new Sequelize('vmail', 'postgres', 'postgres', {
-      host: 'box.bchtest.net',
+    const sequelize = new Sequelize('vmail', config.postgresUser, config.postgresPass, {
+      host: config.postgresHost,
       dialect: 'postgres',
 
       pool: {
