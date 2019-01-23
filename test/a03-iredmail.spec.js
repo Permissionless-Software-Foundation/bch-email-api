@@ -52,7 +52,7 @@ describe('#iRedMail', () => {
 
   describe('#getUsers', () => {
     if (process.env.TEST_ENV === 'integration') {
-      it('should get database models', async () => {
+      it('should get usernames of all users in mailbox table', async () => {
         try {
           // console.log(`Hello world!`)
 
@@ -64,7 +64,11 @@ describe('#iRedMail', () => {
           }
 
           let result = await rp(options)
-          console.log(`result: ${util.inspect(result.body)}`)
+          // console.log(`result: ${util.inspect(result.body)}`)
+
+          // Returns an array of username/email strings.
+          assert.isArray(result.body)
+          assert.isString(result.body[0])
         } catch (err) {
           console.log(`Error in #createUser test: `, err)
         }

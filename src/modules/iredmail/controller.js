@@ -12,16 +12,18 @@ async function createUser (ctx) {
 */
 async function getUsers (ctx) {
   try {
-    // console.log(`ctx.iRedMail: ${util.inspect(ctx.iRedMail)}`)
-
     // Sync the model.
     // const model = await ctx.iRedMail.models.usedQuota.sync()
-    // const model = await ctx.iRedMail.models.mailbox.sync()
-    const model = await ctx.iRedMail.models.forwardings.sync()
+    const model = await ctx.iRedMail.models.mailbox.sync()
+    // const model = await ctx.iRedMail.models.forwardings.sync()
 
+    // Get every model in the database.
     const data = await model.findAll()
 
-    ctx.body = data
+    // Get just the user name.
+    const users = data.map(x => x.username)
+
+    ctx.body = users
   } catch (err) {
     console.log(`Error in iredmail.createUser(): `, err)
     ctx.throw(500, err.message)
