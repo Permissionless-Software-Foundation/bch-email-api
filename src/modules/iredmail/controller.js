@@ -4,7 +4,18 @@ const util = require('util')
 util.inspect.defaultOptions = { depth: 1 }
 
 async function createUser (ctx) {
-  ctx.body = {}
+  try {
+    const modelMailbox = await ctx.iRedMail.models.mailbox.sync()
+    const modelForwardings = await ctx.iRedMail.models.forwardings.sync()
+
+    // http://docs.sequelizejs.com/
+    // await modelMailbox.create({})
+
+    ctx.body = {}
+  } catch (err) {
+    console.log(`Error in iredmail.createUser(): `, err)
+    ctx.throw(500, err.message)
+  }
 }
 
 /*
@@ -25,10 +36,10 @@ async function getUsers (ctx) {
 
     ctx.body = users
   } catch (err) {
-    console.log(`Error in iredmail.createUser(): `, err)
+    console.log(`Error in iredmail.getUsers(): `, err)
     ctx.throw(500, err.message)
   }
-/*
+  /*
   const user = new User(ctx.request.body.user)
   try {
     await user.save()

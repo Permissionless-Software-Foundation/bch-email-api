@@ -1,7 +1,7 @@
 /*
   mailbox table in the iRedMail postgres database.
 
-  The constructor cxpects an instantiation of the sequalize class. Returns a
+  The constructor expects an instantiation of the sequalize class. Returns a
   Sequelize model.
 */
 
